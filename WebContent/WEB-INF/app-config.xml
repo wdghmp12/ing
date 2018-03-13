@@ -52,5 +52,17 @@
 	<aop:config>
 		<aop:advisor advice-ref="tx" pointcut="bean(*Service)" />
 	</aop:config>
+	<!-- mail sender setting -->
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="mailSender">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="username" value="wdghmp23@gmail.com"/>
+		<property name="password" value="wdghmp12"/>
+		<property name="port" value="587"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
 </beans>
 
