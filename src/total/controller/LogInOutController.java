@@ -16,18 +16,22 @@ import total.service.FindService;
 @Controller
 public class LogInOutController {
 	@Autowired
-	FindService loginOutService;
+	FindService FindService;
 	
 	
 	@RequestMapping(path="/login", method=RequestMethod.GET)
-	public String loginGetHandle() {
-		return "login";
+	public String loginGetHandle(HttpSession session) {
+		if(session.getAttribute("logon") == null) {
+			return "login";
+		}else {
+			return "redirect:/";
+		}
 	}
 	
 	@RequestMapping(path="/session", method=RequestMethod.POST)
 	public String loginPostHandle(@RequestParam Map<String, String> param, HttpSession session, Model model) {
 		
-		Map rst = loginOutService.findByIdMailAndPass(param);
+		Map rst = FindService.findByIdMailAndPass(param);
 		if(rst != null) {
 			session.setAttribute("logon", rst.get("ID"));
 			return "redirect:/";
@@ -36,4 +40,11 @@ public class LogInOutController {
 			return "login";
 		}
 	}
+	
+	@RequestMapping(path="/logout", method=RequestMethod.GET)
+	public String logoutPostHandle(HttpSession session) {
+		session.removeAttribute("logon");
+		return "redirect:/";
+	}
+	
 }
