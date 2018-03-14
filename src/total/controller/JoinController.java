@@ -39,7 +39,7 @@ public class JoinController {
 			}
 			throw new Exception();
 		}catch(Exception e) {
-			model.addAttribute("err", "계정생성에 문제가 있었습니다!!!");
+			model.addAttribute("err", "계정생성에서 문제가 있었습니다!!!");
 			return "join";
 		}
 	}
